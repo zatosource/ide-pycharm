@@ -1,0 +1,13 @@
+<idea-plugin>
+    <application-components>
+        <component>
+            <implementation-class>io.zato.intellij.sync.UploadOnSaveComponent</implementation-class>
+        </component>
+    </application-components>
+
+    <actions>
+        <action class="io.zato.intellij.sync.SyncCurrentFileAction" id="zato.syncFile" icon="/icons/zato.png">
+            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="Servers.Deploy"/>
+        </action>
+    </actions>
+</idea-plugin>

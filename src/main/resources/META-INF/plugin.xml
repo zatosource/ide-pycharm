@@ -1,0 +1,42 @@
+<idea-plugin>
+    <id>zato</id>
+    <name>Zato hot-deployment</name>
+    <version>1.0</version>
+    <vendor email="pycharm@m.zato.io" url="https://zato.io/docs/?pycharm-plugin">Zato Source s.r.o.</vendor>
+    <category>network</category>
+
+    <description><![CDATA[<html>
+        Adds hot-deployment of API services to Zato clusters.
+    </html>]]></description>
+
+    <change-notes><![CDATA[
+        <html>
+          <b>1.0 - 2017-01-18</b>
+          <ul>
+            <li>Initial release</li>
+          </ul>
+        </html>
+    ]]>
+    </change-notes>
+
+    <!-- See http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="163.0"/>
+
+    <depends>com.intellij.modules.lang</depends>
+    <depends config-file="zato-python.xml" optional="true">com.intellij.modules.python</depends>
+
+    <extensionPoints>
+        <!-- Add your own extension points here -->
+    </extensionPoints>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="io.zato.intellij.settings.ZatoSettingsService"/>
+
+        <applicationService serviceImplementation="io.zato.intellij.http.ZatoHttpService"/>
+
+        <applicationConfigurable id="zato.settings"
+                                 groupId="language"
+                                 displayName="Zato"
+                                 provider="io.zato.intellij.ui.settings.ZatoSettingsFactory"/>
+    </extensions>
+</idea-plugin>
