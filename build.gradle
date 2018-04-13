@@ -6,7 +6,7 @@ repositories {
     mavenCentral()
 }
 
-version = '1.0.0'
+version = '1.0.1'
 
 allprojects {
     apply plugin: 'java'
@@ -25,7 +25,7 @@ allprojects {
 
     patchPluginXml {
         sinceBuild '163.0'
-        untilBuild '173.*'
+        untilBuild '*.*'
     }
 
     publishPlugin {
