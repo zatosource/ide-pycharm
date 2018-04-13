@@ -9,7 +9,6 @@ but the synchronisation feature is disabled in this case.
 ### Versions
 
 Versions **2016.3 or later** are supported.
-New major versions will be supported when they've been released.
 
 ### IDEs
 

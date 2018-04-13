@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>zato</id>
     <name>Zato hot deployment</name>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <vendor email="mail@zato.io" url="https://zato.io/docs/">Zato Source s.r.o.</vendor>
     <category>network</category>
 
