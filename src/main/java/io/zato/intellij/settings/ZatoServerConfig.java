@@ -96,7 +96,7 @@ public class ZatoServerConfig {
     }
 
     public String getUploadUrl() {
-        if (url.contains("zato/ide-deploy")) {
+        if (url.contains("/ide-deploy")) {
             return url;
         }
 
