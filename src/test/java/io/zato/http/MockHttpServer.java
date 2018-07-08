@@ -32,7 +32,7 @@ public class MockHttpServer extends NanoHTTPD {
     private String path;
 
     public MockHttpServer(String username, String password) {
-        this(23000, "/zato/ide-deploy", username, password);
+        this(23000, "/ide-deploy", username, password);
     }
 
     public MockHttpServer(int port, String path, String username, String password) {

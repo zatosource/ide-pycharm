@@ -101,7 +101,7 @@ public class ZatoServerConfig {
         }
 
         url = StringUtil.trimEnd(url, "/");
-        return url + "/zato/ide-deploy";
+        return url + "/ide-deploy";
     }
 
     @Attribute("username")
