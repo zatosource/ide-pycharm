@@ -11,16 +11,16 @@ public class ZatoServerConfigTest {
     public void uploadUrl() {
         ZatoServerConfig c = new ZatoServerConfig("dev", "http://www.example.com/", "user", "secret", true);
         Assert.assertEquals("http://www.example.com/", c.getUrl());
-        Assert.assertEquals("http://www.example.com/zato/ide-deploy", c.getUploadUrl());
+        Assert.assertEquals("http://www.example.com/ide-deploy", c.getUploadUrl());
 
         //no trailing /
         c = new ZatoServerConfig("dev", "http://www.example.com", "user", "secret", true);
         Assert.assertEquals("http://www.example.com", c.getUrl());
-        Assert.assertEquals("http://www.example.com/zato/ide-deploy", c.getUploadUrl());
+        Assert.assertEquals("http://www.example.com/ide-deploy", c.getUploadUrl());
 
         //path in url
-        c = new ZatoServerConfig("dev", "http://www.example.com/zato/ide-deploy", "user", "secret", true);
-        Assert.assertEquals("http://www.example.com/zato/ide-deploy", c.getUrl());
-        Assert.assertEquals("http://www.example.com/zato/ide-deploy", c.getUploadUrl());
+        c = new ZatoServerConfig("dev", "http://www.example.com/ide-deploy", "user", "secret", true);
+        Assert.assertEquals("http://www.example.com/ide-deploy", c.getUrl());
+        Assert.assertEquals("http://www.example.com/ide-deploy", c.getUploadUrl());
     }
 }

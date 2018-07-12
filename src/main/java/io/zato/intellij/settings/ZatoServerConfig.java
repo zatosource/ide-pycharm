@@ -96,12 +96,12 @@ public class ZatoServerConfig {
     }
 
     public String getUploadUrl() {
-        if (url.contains("zato/ide-deploy")) {
+        if (url.contains("/ide-deploy")) {
             return url;
         }
 
         url = StringUtil.trimEnd(url, "/");
-        return url + "/zato/ide-deploy";
+        return url + "/ide-deploy";
     }
 
     @Attribute("username")

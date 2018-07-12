@@ -35,13 +35,13 @@ public class RemoteZatoHttpTest {
         Assert.assertEquals("Expected a successful connection", HttpStatus.SC_OK,
                 api.testConnection(newServerConfig("/", "username", "secret")).getStatusCode());
         Assert.assertEquals("Expected a successful connection", HttpStatus.SC_OK,
-                api.testConnection(newServerConfig("/zato/ide-deploy", "username", "secret")).getStatusCode());
+                api.testConnection(newServerConfig("/ide-deploy", "username", "secret")).getStatusCode());
 
         Assert.assertEquals("A request with an invalid path must fail", HttpStatus.SC_NOT_FOUND,
                 api.testConnection(newServerConfig("/invalid/path", "myUser", "secret")).getStatusCode());
 
         Assert.assertEquals("A request with an invalid credentials must fail", HttpStatus.SC_UNAUTHORIZED,
-                api.testConnection(newServerConfig("/zato/ide-deploy", null, null)).getStatusCode());
+                api.testConnection(newServerConfig("/ide-deploy", null, null)).getStatusCode());
     }
 
     @Test
@@ -49,13 +49,13 @@ public class RemoteZatoHttpTest {
         ZatoHttp api = new RemoteZatoHttp();
 
         Assert.assertTrue("Expected a successful upload",
-                api.upload(newServerConfig("/zato/ide-deploy", "username", "secret"), "my content", Paths.get("/myFile.py")).getStatusCode() == HttpStatus.SC_OK);
+                api.upload(newServerConfig("/ide-deploy", "username", "secret"), "my content", Paths.get("/myFile.py")).getStatusCode() == HttpStatus.SC_OK);
 
         Assert.assertFalse("An upload request with an invalid path must fail",
                 api.upload(newServerConfig("/invalid/path", "myUser", "secret"), "my content", Paths.get("/myFile.py")).getStatusCode() == HttpStatus.SC_OK);
 
         Assert.assertFalse("An upload request with an invalid credentials must fail",
-                api.upload(newServerConfig("/zato/ide-deploy", null, null), "my content", Paths.get("/myFile.py")).getStatusCode() == HttpStatus.SC_OK);
+                api.upload(newServerConfig("/ide-deploy", null, null), "my content", Paths.get("/myFile.py")).getStatusCode() == HttpStatus.SC_OK);
     }
 
     @NotNull
