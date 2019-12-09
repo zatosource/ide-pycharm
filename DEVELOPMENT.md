@@ -19,7 +19,7 @@ After a successful build the plugin file is here (for a plugin with version 1.0.
 ```
 
 ## Test the plugin
-The file `zato-1.0.0.zip` can be tested in the different versions of PyCharm and IntelliJ
+The file `zato-1.0.x.zip` can be tested in the different versions of PyCharm and IntelliJ
 by choosing `File > Settings > Plugins > Install plugin from disk...`.
 Choose the file in the dialog and restart the IDE after applying the settings. The plugin
 will be active after the restart of your IDE.
@@ -41,12 +41,10 @@ This is only necessary if you'd like to work on the plugin's source code.
 It's not required to build it.
 
 ### Setup IntelliJ
-- Download IntelliJ Community Edition 2016.3.x, Version 2016.3.4 was used for development
+- Download the current version of IntelliJ Community Edition 2016.3.x, Version 2019.3 was used for development
     - List of older releases: https://www.jetbrains.com/idea/download/previous.html
-- Run 'setup-sdk.bash' to download the required version of the python-community plugin
-- Setup a new SDK of type 'IntelliJ Platform Plugin SDK' with the name `IC-163.x (python-community)`
-    - Link it to the unpacked download of your 2016.3.x version
-    - Add 'python-plugin-sdk/python/lib/*' as additional libraries in the SDK's configuration
+- Open the project directory as a project, it's using the build.gradle file 
+  to synchronize the IntelliJ SDK and the Python plugion 
 
 ### Directory structure
 

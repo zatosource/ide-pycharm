@@ -1,12 +1,12 @@
 plugins {
-    id "org.jetbrains.intellij" version "0.2.17"
+    id "org.jetbrains.intellij" version "0.4.14"
 }
 
 repositories {
     mavenCentral()
 }
 
-version = '1.0.2'
+version = '1.0.3'
 
 allprojects {
     apply plugin: 'java'
@@ -16,16 +16,22 @@ allprojects {
 
     apply plugin: 'org.jetbrains.intellij'
     intellij {
-        version 'IC-2016.3.4'
         pluginName 'zato'
 
-        plugins 'PythonCore:2016.3.163.298'
-        downloadSources false
+         version 'IC-2016.3.4'
+         plugins 'PythonCore:2016.3.163.298'
+// use these properties instead to build against IJ 2018.1
+//        version 'IC-2018.1.8'
+//        plugins 'PythonCore:2018.1.181.5087.50'
+// use these properties instead to build against IJ 2019.3
+//         version 'IC-2019.3'
+//         plugins 'PythonCore:193.5233.139'
+        downloadSources true
     }
 
     patchPluginXml {
         sinceBuild '163.0'
-        untilBuild '191.*'
+        untilBuild '193.*'
     }
 
     publishPlugin {
@@ -41,14 +47,13 @@ allprojects {
     // the coverage reports will be available at build/reports/coverage/test/html/index.html
     apply plugin: 'jacoco'
     jacoco {
-        toolVersion = "0.7.9"
+        toolVersion = "0.8.5"
         reportsDir = file("$buildDir/reports/coverage")
     }
     test {
         finalizedBy jacocoTestReport
         jacoco {
             enabled true
-            append false
             includes["com.*"]
         }
     }
@@ -70,8 +75,4 @@ allprojects {
             ]
         }
     }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.4'
 }

@@ -8,7 +8,7 @@ but the synchronisation feature is disabled in this case.
 
 ### Versions
 
-Versions **2016.3 or later** are supported.
+Versions **2016.3 up to 2019.3** are supported.
 
 ### IDEs
 

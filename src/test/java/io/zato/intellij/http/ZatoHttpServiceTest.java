@@ -1,6 +1,6 @@
 package io.zato.intellij.http;
 
-import com.intellij.ide.highlighter.JavaFileType;
+import com.intellij.json.JsonFileType;
 import com.intellij.openapi.fileTypes.PlainTextFileType;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCase;
@@ -18,10 +18,10 @@ public class ZatoHttpServiceTest extends LightPlatformCodeInsightFixtureTestCase
         Assert.assertFalse(service.isSupported((VirtualFile) null));
         //psi
         Assert.assertFalse(service.isSupported(myFixture.configureByText(PlainTextFileType.INSTANCE, "plain text not supported")));
-        Assert.assertFalse(service.isSupported(myFixture.configureByText(JavaFileType.INSTANCE, "java code not supported")));
+        Assert.assertFalse(service.isSupported(myFixture.configureByText(JsonFileType.INSTANCE, "JSON not supported")));
         //vfs
         Assert.assertFalse(service.isSupported(myFixture.configureByText(PlainTextFileType.INSTANCE, "plain text not supported").getVirtualFile()));
-        Assert.assertFalse(service.isSupported(myFixture.configureByText(JavaFileType.INSTANCE, "java code not supported").getVirtualFile()));
+        Assert.assertFalse(service.isSupported(myFixture.configureByText(JsonFileType.INSTANCE, "JSON not supported").getVirtualFile()));
 
         //supported
         Assert.assertTrue(service.isSupported(myFixture.configureByText(PythonFileType.INSTANCE, "")));
