@@ -1,5 +1,5 @@
 plugins {
-    id "org.jetbrains.intellij" version "0.2.17"
+    id "org.jetbrains.intellij" version "0.4.14"
 }
 
 repositories {
@@ -20,7 +20,7 @@ allprojects {
         pluginName 'zato'
 
         plugins 'PythonCore:2016.3.163.298'
-        downloadSources false
+        downloadSources true
     }
 
     patchPluginXml {
@@ -41,14 +41,13 @@ allprojects {
     // the coverage reports will be available at build/reports/coverage/test/html/index.html
     apply plugin: 'jacoco'
     jacoco {
-        toolVersion = "0.7.9"
+        toolVersion = "0.8.5"
         reportsDir = file("$buildDir/reports/coverage")
     }
     test {
         finalizedBy jacocoTestReport
         jacoco {
             enabled true
-            append false
             includes["com.*"]
         }
     }
@@ -70,8 +69,4 @@ allprojects {
             ]
         }
     }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.4'
 }
