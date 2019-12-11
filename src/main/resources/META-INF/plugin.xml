@@ -5,9 +5,9 @@
     <vendor email="pycharm@m.zato.io" url="https://zato.io/docs/?pycharm-plugin">Zato Source s.r.o.</vendor>
     <category>network</category>
 
-    <description><![CDATA[<html>
+    <description><![CDATA[
         Adds hot-deployment of API services to Zato clusters.
-    </html>]]></description>
+    ]]></description>
 
     <change-notes><![CDATA[
         <html>
