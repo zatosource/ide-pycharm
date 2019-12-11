@@ -18,14 +18,17 @@ allprojects {
     intellij {
         pluginName 'zato'
 
-         version 'IC-2016.3.4'
-         plugins 'PythonCore:2016.3.163.298'
+        version 'IC-2016.3.4'
+        plugins 'PythonCore:2016.3.163.298'
+
 // use these properties instead to build against IJ 2018.1
 //        version 'IC-2018.1.8'
 //        plugins 'PythonCore:2018.1.181.5087.50'
+
 // use these properties instead to build against IJ 2019.3
-//         version 'IC-2019.3'
-//         plugins 'PythonCore:193.5233.139'
+//        version 'IC-193.5662.31-EAP-SNAPSHOT'
+//        plugins 'PythonCore:193.5662.31'
+
         downloadSources true
     }
 
