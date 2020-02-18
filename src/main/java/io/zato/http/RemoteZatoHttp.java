@@ -128,9 +128,9 @@ public class RemoteZatoHttp implements ZatoHttp {
                 return new ZatoHttpResponse(statusCode, "", true);
             }
 
-            JsonElement json = new JsonParser().parse(body);
+            JsonElement json = JsonParser.parseString(body);
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Zato server reponse body: " + body);
+                LOG.debug("Zato server response body: " + body);
             }
 
             JsonObject responseDetails = json.getAsJsonObject().getAsJsonObject("zato_ide_deploy_create_response");
@@ -139,8 +139,8 @@ public class RemoteZatoHttp implements ZatoHttp {
 
             return new ZatoHttpResponse(statusCode, message, success);
         } catch (Exception e) {
-            LOG.warn("Communication with server failed: " + server);
-            throw new IOException("Invalid URL " + server.getUrl(), e);
+            LOG.warn("Communication with server failed: " + server, e);
+            throw new IOException("Failed to communicate with " + server.getUrl(), e);
         }
     }
 }

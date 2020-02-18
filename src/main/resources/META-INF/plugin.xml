@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>zato</id>
     <name>Zato hot-deployment</name>
-    <version>1.0.4</version>
+    <version>1.1.0</version>
     <vendor email="pycharm@m.zato.io" url="https://zato.io/docs/?pycharm-plugin">Zato Source s.r.o.</vendor>
     <category>network</category>
 
@@ -11,6 +11,11 @@
 
     <change-notes><![CDATA[
         <html>
+          <b>1.1.0 - 2020-02-18</b>
+          <ul>
+            <li>Compatibility with 2020.1 EAP</li>
+          </ul>
+
           <b>1.0.4 - 2019-12-11</b>
           <ul>
             <li>Updated plugin icon</li>
@@ -35,7 +40,7 @@
     </change-notes>
 
     <!-- See http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="163.0"/>
+    <idea-version since-build="201.0"/>
 
     <depends>com.intellij.modules.lang</depends>
     <depends config-file="zato-python.xml" optional="true">com.intellij.modules.python</depends>

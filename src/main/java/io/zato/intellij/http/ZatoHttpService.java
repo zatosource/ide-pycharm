@@ -1,6 +1,7 @@
 package io.zato.intellij.http;
 
 import com.intellij.ide.scratch.ScratchFileService;
+import com.intellij.ide.scratch.ScratchUtil;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.NotificationsManager;
@@ -80,7 +81,7 @@ public class ZatoHttpService {
             return false;
         }
 
-        if (ScratchFileService.isInScratchRoot(file)) {
+        if (ScratchUtil.isScratch(file)) {
             LOG.info("Skipping upload of scratch-file");
             return false;
         }
@@ -116,15 +117,15 @@ public class ZatoHttpService {
      * @param project
      */
     public void uploadAsync(ZatoServerConfig server, Path path, String fileContent, Project project) {
-        UploadRunanble runanble = new UploadRunanble(path, fileContent, server, project);
+        UploadRunanble runnable = new UploadRunanble(path, fileContent, server, project);
 
         Application application = ApplicationManager.getApplication();
         if (application.isUnitTestMode()) {
             //run in the current thread in test cases because async code is hardly testable
-            runanble.run();
+            runnable.run();
         } else {
             //run in a background thread
-            application.executeOnPooledThread(runanble);
+            application.executeOnPooledThread(runnable);
         }
     }
 

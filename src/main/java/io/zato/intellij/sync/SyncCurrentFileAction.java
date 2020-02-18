@@ -1,6 +1,6 @@
 package io.zato.intellij.sync;
 
-import com.intellij.ide.scratch.ScratchFileService;
+import com.intellij.ide.scratch.ScratchUtil;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.ui.Messages;
@@ -54,7 +54,7 @@ public class SyncCurrentFileAction extends AnAction {
         presentation.setIcon(Icons.ZatoLogo);
         presentation.setEnabled(file != null
                 && file.getFileType() instanceof PythonFileType
-                && !ScratchFileService.isInScratchRoot(file.getVirtualFile()));
+                && !ScratchUtil.isScratch(file.getVirtualFile()));
     }
 
     @Override
