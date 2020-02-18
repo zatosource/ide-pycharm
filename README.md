@@ -10,6 +10,8 @@ but the synchronisation feature is disabled in this case.
 
 Versions **2020.1 and later** are supported by this branch.
 
+Branch **idea-2016+** supports versions 2016.1 to 2019.3.
+
 ### IDEs
 
 Supported are:
