@@ -3,12 +3,12 @@
 ## Supported products
 
 This plugin requires Python support in your IDE to work properly.
-If the Python support is unavailable then the Zato plugin is enabled
+If the Python support is unavailable then the Zato plugin is enabled,
 but the synchronisation feature is disabled in this case.
 
 ### Versions
 
-Versions **2016.3 up to 2019.3** are supported.
+Versions **2020.1 and later** are supported by this branch.
 
 ### IDEs
 

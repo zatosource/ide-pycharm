@@ -32,7 +32,7 @@ Official instructions how to deploy a plugin: https://www.jetbrains.org/intellij
 - Run the gradle build
 - If there were no errors during the build, then the file to upload is `./build/distributions/zato-$version.zip`
 - Login at https://plugins.jetbrains.com and click on *Upload plugin* if you'd like to upload it for the first time. If you'd like to update an existing plugin, then open the plugin's page and click on *Update Plugin*.
-- Select the file listed above in the upload control, add change notes if necessary. The plugin's category is probably *Networking*, but choose any other category at your preference. Also fill out the other fields, like `License` etc.
+- Select the file listed above in the upload control, add change notes if necessary. The plugin's category is probably *Networking*, but choose any other category at your preference. Also, fill out the other fields, like `License` etc.
 - After this JetBrains will approve the new plugin. This might take a few hours.
 - After its approval then plugin will be listed at https://plugins.jetbrains.com. You'll be able to see download statistics etc. after you logged in and open the plugins page.
 
@@ -44,7 +44,7 @@ It's not required to build it.
 - Download the current version of IntelliJ Community Edition 2016.3.x, Version 2019.3 was used for development
     - List of older releases: https://www.jetbrains.com/idea/download/previous.html
 - Open the project directory as a project, it's using the build.gradle file 
-  to synchronize the IntelliJ SDK and the Python plugion 
+  to synchronize the IntelliJ SDK and the Python plugin 
 
 ### Directory structure
 

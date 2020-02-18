@@ -1,9 +1,7 @@
 <idea-plugin>
-    <application-components>
-        <component>
-            <implementation-class>io.zato.intellij.sync.UploadOnSaveComponent</implementation-class>
-        </component>
-    </application-components>
+    <extensions defaultExtensionNs="com.intellij">
+        <vfs.asyncListener implementation="io.zato.intellij.sync.AsyncUploadOnSaveListener" />
+    </extensions>
 
     <actions>
         <action class="io.zato.intellij.sync.SyncCurrentFileAction" id="zato.syncFile" icon="/icons/zato.png">

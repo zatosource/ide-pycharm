@@ -11,5 +11,5 @@ public class Icons {
     private Icons() {
     }
 
-    public static Icon ZatoLogo = IconLoader.findIcon("/icons/zato.png");
+    public static final Icon ZatoLogo = IconLoader.findIcon("/icons/zato.png");
 }
