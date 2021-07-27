@@ -1,6 +1,7 @@
 package io.zato.intellij.settings;
 
 import com.intellij.util.xmlb.annotations.Tag;
+import org.jetbrains.annotations.TestOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +11,18 @@ import java.util.Objects;
  * @author jansorg
  */
 public class ZatoSettings {
-    private List<ZatoServerConfig> serverConfigurations = new ArrayList<>();
+    private final List<ZatoServerConfig> serverConfigurations = new ArrayList<>();
 
     @Tag("servers")
     public List<ZatoServerConfig> getServerConfigurations() {
         return serverConfigurations;
     }
 
-    public void setServerConfigurations(List<ZatoServerConfig> serverConfigurations) {
-        synchronized (this) {
-            this.serverConfigurations = serverConfigurations;
-        }
-    }
-
     @Override
     public String toString() {
         return "ZatoSettings{" +
-                "serverConfigurations=" + serverConfigurations +
-                '}';
+               "serverConfigurations=" + serverConfigurations +
+               '}';
     }
 
     @Override
@@ -38,7 +33,7 @@ public class ZatoSettings {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ZatoSettings that = (ZatoSettings) o;
+        ZatoSettings that = (ZatoSettings)o;
         return Objects.equals(serverConfigurations, that.serverConfigurations);
     }
 
@@ -47,6 +42,7 @@ public class ZatoSettings {
         return Objects.hash(serverConfigurations);
     }
 
+    @TestOnly
     public void add(ZatoServerConfig config) {
         synchronized (this) {
             serverConfigurations.add(config);
@@ -57,6 +53,7 @@ public class ZatoSettings {
         synchronized (this) {
             serverConfigurations.clear();
             serverConfigurations.addAll(all);
+            serverConfigurations.forEach(ZatoServerConfig::storeSafePassword);
         }
     }
 }
