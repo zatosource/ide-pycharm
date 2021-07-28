@@ -21,27 +21,24 @@ import java.util.Optional;
  * @author jansorg
  */
 public class SyncCurrentFileAction extends AnAction {
-    private final ZatoHttpService httpService;
-    private final ZatoSettingsService settingsService;
-
-    public SyncCurrentFileAction() {
-        this.httpService = ServiceManager.getService(ZatoHttpService.class);
-        this.settingsService = ServiceManager.getService(ZatoSettingsService.class);
-    }
-
     private static PsiFile currentFile(DataContext e) {
         return e.getData(CommonDataKeys.PSI_FILE);
+    }
+
+    public SyncCurrentFileAction() {
     }
 
     @Override
     public void actionPerformed(AnActionEvent e) {
         PsiFile file = currentFile(e.getDataContext());
 
-        Optional<ZatoServerConfig> server = settingsService.getDefaultServer();
+        Optional<ZatoServerConfig> server = ServiceManager.getService(ZatoSettingsService.class).getDefaultServer();
         if (!server.isPresent()) {
-            Messages.showErrorDialog("There is no default server available in the settings.\nPlease configure at least one server.", "No Server Configuration");
-        } else {
-            httpService.uploadAsync(server.get(), file);
+            Messages.showErrorDialog("There is no default server available in the settings.\nPlease configure at least one server.",
+                                     "No Server Configuration");
+        }
+        else {
+            ServiceManager.getService(ZatoHttpService.class).uploadAsync(server.get(), file);
         }
     }
 
@@ -53,8 +50,8 @@ public class SyncCurrentFileAction extends AnAction {
         presentation.setText("Upload to default Zato server");
         presentation.setIcon(Icons.ZatoLogo);
         presentation.setEnabled(file != null
-                && file.getFileType() instanceof PythonFileType
-                && !ScratchUtil.isScratch(file.getVirtualFile()));
+                                && file.getFileType() instanceof PythonFileType
+                                && !ScratchUtil.isScratch(file.getVirtualFile()));
     }
 
     @Override
