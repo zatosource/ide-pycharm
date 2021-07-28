@@ -1,13 +1,11 @@
 package io.zato.intellij.http;
 
-import com.intellij.ide.scratch.ScratchFileService;
 import com.intellij.ide.scratch.ScratchUtil;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.NotificationsManager;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -39,7 +37,7 @@ public class ZatoHttpService {
     }
 
     public static ZatoHttpService getInstance() {
-        return ServiceManager.getService(ZatoHttpService.class);
+        return ApplicationManager.getApplication().getService(ZatoHttpService.class);
     }
 
     public boolean isSupported(PsiFile file) {

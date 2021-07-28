@@ -32,13 +32,13 @@ public class SyncCurrentFileAction extends AnAction {
     public void actionPerformed(AnActionEvent e) {
         PsiFile file = currentFile(e.getDataContext());
 
-        Optional<ZatoServerConfig> server = ServiceManager.getService(ZatoSettingsService.class).getDefaultServer();
+        Optional<ZatoServerConfig> server = ZatoSettingsService.getInstance().getDefaultServer();
         if (!server.isPresent()) {
             Messages.showErrorDialog("There is no default server available in the settings.\nPlease configure at least one server.",
                                      "No Server Configuration");
         }
         else {
-            ServiceManager.getService(ZatoHttpService.class).uploadAsync(server.get(), file);
+            ZatoHttpService.getInstance().uploadAsync(server.get(), file);
         }
     }
 
