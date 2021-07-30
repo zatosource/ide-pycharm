@@ -46,6 +46,7 @@ public class SyncCurrentFileAction extends AnAction {
             if (promptPassword) {
                 String password = ZatoPasswordUtil.promptPassword(null);
                 serverConfig.setSafePassword(password);
+                serverConfig.storeSafePassword();
             }
             ZatoHttpService.getInstance().uploadAsync(serverConfig, file);
         }

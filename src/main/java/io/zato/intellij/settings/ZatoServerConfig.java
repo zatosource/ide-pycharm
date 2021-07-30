@@ -219,7 +219,7 @@ public class ZatoServerConfig {
         }
     }
 
-    void storeSafePassword() {
+    public void storeSafePassword() {
         // support running in headless tests
         if (ApplicationManager.getApplication() != null) {
             PasswordSafe.getInstance().set(createCredentialsAttribute(), new Credentials(username, safePassword));

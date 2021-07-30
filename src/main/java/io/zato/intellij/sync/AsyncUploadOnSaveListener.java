@@ -97,6 +97,7 @@ public class AsyncUploadOnSaveListener implements AsyncFileListener {
                     if (promptPassword) {
                         String password = ZatoPasswordUtil.promptPassword(null);
                         serverConfig.setSafePassword(password);
+                        serverConfig.storeSafePassword();
                     }
 
                     // at this point it's a supported (Python) file which contains the upload marker
