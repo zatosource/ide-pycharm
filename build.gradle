@@ -1,12 +1,12 @@
 plugins {
-    id "org.jetbrains.intellij" version "0.4.16"
+    id "org.jetbrains.intellij" version "1.1.4"
 }
 
 repositories {
     mavenCentral()
 }
 
-version = '1.1.0'
+version = '1.2.0'
 
 allprojects {
     apply plugin: 'java'
@@ -16,26 +16,30 @@ allprojects {
 
     apply plugin: 'org.jetbrains.intellij'
     intellij {
-        pluginName 'zato'
+        pluginName = 'zato'
 
-        version '201.5259.13-EAP-SNAPSHOT'
-        plugins 'PythonCore:201.5259.13'
+        version = project.property("ideVersion")
+        plugins.add("PythonCore:${project.property("pythonCoreVersion")}")
 
-        downloadSources true
+        downloadSources = true
     }
 
     patchPluginXml {
-        sinceBuild '201.0'
-        untilBuild '203.*'
+        sinceBuild = '201.0'
+        untilBuild = '221.*'
     }
 
     publishPlugin {
-        username 'your-jetbrains-username'
-        //add your user's password on the command line using '-Dintellij.publish.password=...'
-        password System.properties['intellij.publish.password']
+        //add a valid token on the command line using '-Dintellij.publish.token=...'
+        //https://github.com/JetBrains/gradle-intellij-plugin#publishing-dsl
+        token = System.properties['intellij.publish.token']
 
         //use a custom channel if you'd offer nightly/unstable versions
         //channels 'eap'
+    }
+    
+    runPluginVerifier {
+        ideVersions = project.property("ideVerifierVersions").split(",").toList()
     }
 
     // code coverage using the Jacoco engine, see https://docs.gradle.org/current/userguide/jacoco_plugin.html
@@ -54,8 +58,8 @@ allprojects {
     }
 
     dependencies {
-        testCompile "org.nanohttpd:nanohttpd:2.2.0"
-        testCompile "junit:junit:4.12"
+        testImplementation "org.nanohttpd:nanohttpd:2.2.0"
+        testImplementation "junit:junit:4.12"
     }
 
     // test logging configuration, shows test progress and messages to standard error

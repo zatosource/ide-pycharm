@@ -32,9 +32,9 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
     private JBList serverList;
     private ZatoSettingsForm form;
     private volatile boolean listenerSuspended = false;
-    private DocumentAdapter listener = new DocumentAdapter() {
+    private final DocumentAdapter listener = new DocumentAdapter() {
         @Override
-        protected void textChanged(DocumentEvent e) {
+        protected void textChanged(@NotNull DocumentEvent e) {
             applyEditor();
         }
     };
@@ -70,7 +70,7 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
             CollectionListModel<ZatoServerConfig> model = model(serverList);
             boolean hasDefaultServer = model.getItems().stream().anyMatch(ZatoServerConfig::isDefaultServer);
 
-            ZatoServerConfig config = new ZatoServerConfig();
+            ZatoServerConfig config = new ZatoServerConfig(true);
             config.setDefaultServer(!hasDefaultServer);
             model.add(config);
 
@@ -162,9 +162,12 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
 
         ZatoServerConfig config = getSelectedServer();
         if (config != null) {
+            String password = String.valueOf(form.getPasswordField().getPassword());
+
             config.setName(form.getNameInput().getText());
             config.setUsername(form.getUsernameField().getText());
-            config.setPassword(String.valueOf(form.getPasswordField().getPassword()));
+            config.setSafePassword(password);
+            config.setStoredPassword(!password.isEmpty());
             config.setDefaultServer(form.getIsDefaultCheckbox().isSelected());
             config.setUrl(form.getAddressField().getText());
 
@@ -179,8 +182,8 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
             form.getNameInput().setText(server.getName());
             form.getAddressField().setText(server.getUrl());
             form.getUsernameField().setText(server.getUsername());
-            form.getPasswordField().setText(server.getPassword() == null ? "" : server.getPassword());
-            form.getIsDefaultCheckbox().setSelected(server.getDefaultServer());
+            form.getPasswordField().setText(server.getSafePassword() == null ? "" : server.getSafePassword());
+            form.getIsDefaultCheckbox().setSelected(server.isDefaultServer());
         } finally {
             listenerSuspended = false;
         }
@@ -250,7 +253,8 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
     private void applyTo(ZatoSettings settings) {
         CollectionListModel<ZatoServerConfig> servers = model(serverList);
 
-        settings.set(servers.getItems().stream().map(ZatoServerConfig::copy).collect(Collectors.toList()));
+        List<ZatoServerConfig> serverConfigs = servers.getItems().stream().map(ZatoServerConfig::copy).collect(Collectors.toList());
+        settings.set(serverConfigs);
     }
 
     private void testConnectionAction(ActionEvent e) {

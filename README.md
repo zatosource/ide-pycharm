@@ -20,3 +20,6 @@ Supported are:
 - PyCharm Community
 - IntelliJ Community with the Python plugin installed
 - IntelliJ Ultimate with the Python plugin installed
+
+## Passwords
+The passwords of your configured Zato servers are stored in your IDE's [password safe](https://www.jetbrains.com/help/idea/reference-ide-settings-password-safe.html). If you configured the password safe to not store passwords, then you will be prompted for a password the first time a file is uploaded to the configured default Zato server.

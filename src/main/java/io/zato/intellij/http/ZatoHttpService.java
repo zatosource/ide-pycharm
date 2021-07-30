@@ -1,13 +1,11 @@
 package io.zato.intellij.http;
 
-import com.intellij.ide.scratch.ScratchFileService;
 import com.intellij.ide.scratch.ScratchUtil;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.NotificationsManager;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -39,7 +37,7 @@ public class ZatoHttpService {
     }
 
     public static ZatoHttpService getInstance() {
-        return ServiceManager.getService(ZatoHttpService.class);
+        return ApplicationManager.getApplication().getService(ZatoHttpService.class);
     }
 
     public boolean isSupported(PsiFile file) {
@@ -117,7 +115,7 @@ public class ZatoHttpService {
      * @param project
      */
     public void uploadAsync(ZatoServerConfig server, Path path, String fileContent, Project project) {
-        UploadRunanble runnable = new UploadRunanble(path, fileContent, server, project);
+        UploadRunnable runnable = new UploadRunnable(path, fileContent, server, project);
 
         Application application = ApplicationManager.getApplication();
         if (application.isUnitTestMode()) {
@@ -140,13 +138,13 @@ public class ZatoHttpService {
         }
     }
 
-    private class UploadRunanble implements Runnable {
+    private class UploadRunnable implements Runnable {
         private final Path path;
         private final String content;
         private final ZatoServerConfig server;
         private final Project project;
 
-        UploadRunanble(Path path, String content, ZatoServerConfig server, Project project) {
+        UploadRunnable(Path path, String content, ZatoServerConfig server, Project project) {
             this.path = path;
             this.content = content;
             this.server = server;

@@ -27,15 +27,14 @@ public abstract class MockHttpFixtureTestCase extends LightPlatformCodeInsightFi
 
     @Override
     protected void tearDown() throws Exception {
-        super.tearDown();
-
         httpd.stop();
+
+        super.tearDown();
     }
 
     protected void configureDefaultServer() {
         ZatoSettingsService settings = ZatoSettingsService.getInstance();
 
         settings.getState().add(new ZatoServerConfig("main server", httpd.getURI("/").toString(), "username", "secret", true));
-
     }
 }

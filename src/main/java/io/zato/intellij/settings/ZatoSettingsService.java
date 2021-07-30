@@ -1,5 +1,6 @@
 package io.zato.intellij.settings;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -12,13 +13,13 @@ import java.util.Optional;
 
 @State(name = "zato", storages = @Storage("zato-servers.xml"))
 public class ZatoSettingsService implements PersistentStateComponent<ZatoSettings> {
-    private ZatoSettings settings = new ZatoSettings();
-
-    public ZatoSettingsService() {
+    public static ZatoSettingsService getInstance() {
+        return ApplicationManager.getApplication().getService(ZatoSettingsService.class);
     }
 
-    public static ZatoSettingsService getInstance() {
-        return ServiceManager.getService(ZatoSettingsService.class);
+    private volatile ZatoSettings settings = new ZatoSettings();
+
+    public ZatoSettingsService() {
     }
 
     @NotNull
@@ -31,16 +32,20 @@ public class ZatoSettingsService implements PersistentStateComponent<ZatoSetting
     public synchronized void loadState(@Nullable ZatoSettings state) {
         if (state == null) {
             this.settings = new ZatoSettings();
-        } else {
+        }
+        else {
             this.settings = state;
+            for (ZatoServerConfig configuration : this.settings.getServerConfigurations()) {
+                configuration.restoreSafePassword();
+            }
         }
     }
 
     @NonNls
     public synchronized Optional<ZatoServerConfig> getDefaultServer() {
         return settings.getServerConfigurations()
-                .stream()
-                .filter(ZatoServerConfig::isDefaultServer)
-                .findFirst();
+            .stream()
+            .filter(ZatoServerConfig::isDefaultServer)
+            .findFirst();
     }
 }

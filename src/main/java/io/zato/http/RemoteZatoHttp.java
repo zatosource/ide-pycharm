@@ -97,7 +97,7 @@ public class RemoteZatoHttp implements ZatoHttp {
             HttpClientContext context = HttpClientContext.create();
             if (server.hasCredentials()) {
                 BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-                credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials(server.getUsername(), server.getPassword()));
+                credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials(server.getUsername(), server.getSafePassword()));
                 context.setCredentialsProvider(credentialsProvider);
 
                 AuthCache authCache = new BasicAuthCache();

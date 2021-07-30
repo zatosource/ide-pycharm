@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>zato</id>
     <name>Zato hot-deployment</name>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <vendor email="pycharm@m.zato.io" url="https://zato.io/docs/?pycharm-plugin">Zato Source s.r.o.</vendor>
     <category>network</category>
 
@@ -11,6 +11,14 @@
 
     <change-notes><![CDATA[
         <html>
+          <b>1.2.0 - 2021-07-28</b>
+          <ul>
+            <li>Compatibility with 2020.2</li>
+            <li>Passwords of configured Zato servers are now securely stored in the IDE's password safe.
+                Old password settings are converted when you edit the Zato settings for the first time.
+                If your password safe is set to "Don't save", then you'll be prompted the first time you upload to a Zato server.</li>
+          </ul>
+
           <b>1.1.0 - 2020-02-18</b>
           <ul>
             <li>Compatibility with 2020.1 EAP</li>
