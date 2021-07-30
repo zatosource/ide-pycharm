@@ -15,7 +15,8 @@
           <ul>
             <li>Compatibility with 2020.2</li>
             <li>Passwords of configured Zato servers are now securely stored in the IDE's password safe.
-                Old password settings are converted when you edit the Zato settings for the first time.</li>
+                Old password settings are converted when you edit the Zato settings for the first time.
+                If your password safe is set to "Don't save", then you'll be prompted the first time you upload to a Zato server.</li>
           </ul>
 
           <b>1.1.0 - 2020-02-18</b>
