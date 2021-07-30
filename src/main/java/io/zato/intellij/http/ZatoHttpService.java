@@ -115,7 +115,7 @@ public class ZatoHttpService {
      * @param project
      */
     public void uploadAsync(ZatoServerConfig server, Path path, String fileContent, Project project) {
-        UploadRunanble runnable = new UploadRunanble(path, fileContent, server, project);
+        UploadRunnable runnable = new UploadRunnable(path, fileContent, server, project);
 
         Application application = ApplicationManager.getApplication();
         if (application.isUnitTestMode()) {
@@ -138,13 +138,13 @@ public class ZatoHttpService {
         }
     }
 
-    private class UploadRunanble implements Runnable {
+    private class UploadRunnable implements Runnable {
         private final Path path;
         private final String content;
         private final ZatoServerConfig server;
         private final Project project;
 
-        UploadRunanble(Path path, String content, ZatoServerConfig server, Project project) {
+        UploadRunnable(Path path, String content, ZatoServerConfig server, Project project) {
             this.path = path;
             this.content = content;
             this.server = server;

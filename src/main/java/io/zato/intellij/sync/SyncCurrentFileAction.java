@@ -2,7 +2,7 @@ package io.zato.intellij.sync;
 
 import com.intellij.ide.scratch.ScratchUtil;
 import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiFile;
 import com.jetbrains.python.PythonFileType;
@@ -10,6 +10,7 @@ import io.zato.intellij.http.ZatoHttpService;
 import io.zato.intellij.settings.ZatoServerConfig;
 import io.zato.intellij.settings.ZatoSettingsService;
 import io.zato.intellij.ui.Icons;
+import io.zato.intellij.ui.ZatoPasswordUtil;
 
 import java.util.Optional;
 
@@ -38,7 +39,15 @@ public class SyncCurrentFileAction extends AnAction {
                                      "No Server Configuration");
         }
         else {
-            ZatoHttpService.getInstance().uploadAsync(server.get(), file);
+            ZatoServerConfig serverConfig = server.get();
+            boolean promptPassword = !ApplicationManager.getApplication().isUnitTestMode()
+                                     && serverConfig.isStoredPassword()
+                                     && !serverConfig.hasCredentials();
+            if (promptPassword) {
+                String password = ZatoPasswordUtil.promptPassword(null);
+                serverConfig.setSafePassword(password);
+            }
+            ZatoHttpService.getInstance().uploadAsync(serverConfig, file);
         }
     }
 

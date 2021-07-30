@@ -26,6 +26,8 @@ public class ZatoServerConfig {
     // UUID to define the storage key in the password safe
     // XML serialization doesn't seem to allow this out of the box
     private String uuid;
+    // flag if there's a password set, needed to know if we should ask for the password when the safe isn't storing them
+    private boolean storedPassword;
     // not persisted in the settings,
     // but still with getter and setter to support settings of previous versions
     private transient String oldPassword;
@@ -44,10 +46,10 @@ public class ZatoServerConfig {
 
     @TestOnly
     public ZatoServerConfig(String name, String url, String username, String password, boolean isDefault) {
-        this(name, url, username, password, isDefault, UUID.randomUUID().toString());
+        this(name, url, username, password, isDefault, UUID.randomUUID().toString(), password != null);
     }
 
-    private ZatoServerConfig(String name, String url, String username, String password, boolean isDefault, String uuid) {
+    private ZatoServerConfig(String name, String url, String username, String password, boolean isDefault, String uuid, boolean storedPassword) {
         this.name = name;
         this.url = url;
         this.username = username;
@@ -55,6 +57,7 @@ public class ZatoServerConfig {
         this.uuid = uuid;
 
         this.safePassword = password;
+        this.storedPassword = storedPassword; 
     }
 
     @Override
@@ -64,6 +67,7 @@ public class ZatoServerConfig {
                ", url=" + url +
                ", username='" + username + '\'' +
                ", password='*****'" +
+               ", hasPassword=" + storedPassword +
                ", defaultServer=" + defaultServer +
                ", uuid=" + uuid +
                '}';
@@ -81,6 +85,7 @@ public class ZatoServerConfig {
         return Objects.equals(name, that.name) &&
                Objects.equals(url, that.url) &&
                Objects.equals(username, that.username) &&
+               Objects.equals(storedPassword, that.storedPassword) &&
                Objects.equals(safePassword, that.safePassword) &&
                Objects.equals(defaultServer, that.defaultServer) &&
                Objects.equals(uuid, that.uuid);
@@ -88,11 +93,7 @@ public class ZatoServerConfig {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, url, username, safePassword, defaultServer, uuid);
-    }
-
-    public Boolean isDefaultServer() {
-        return defaultServer;
+        return Objects.hash(name, url, username, storedPassword, safePassword, defaultServer, uuid);
     }
 
     public boolean hasCredentials() {
@@ -105,7 +106,7 @@ public class ZatoServerConfig {
      * @return A new instance with the same settings
      */
     public ZatoServerConfig copy() {
-        return new ZatoServerConfig(name, url, username, safePassword, defaultServer, uuid);
+        return new ZatoServerConfig(name, url, username, safePassword, defaultServer, uuid, storedPassword);
     }
 
     @Attribute("name")
@@ -155,6 +156,8 @@ public class ZatoServerConfig {
     @Deprecated
     public void setOldPassword(String password) {
         this.oldPassword = password;
+        // only for the old password, which is restored
+        this.storedPassword = password != null && !password.isEmpty();
     }
 
     @Transient
@@ -168,7 +171,7 @@ public class ZatoServerConfig {
     }
 
     @Attribute("default")
-    public boolean getDefaultServer() {
+    public boolean isDefaultServer() {
         return defaultServer;
     }
 
@@ -187,6 +190,15 @@ public class ZatoServerConfig {
         this.uuid = uuid;
     }
 
+    @Attribute("storedPassword")
+    public boolean isStoredPassword() {
+        return storedPassword;
+    }
+
+    public void setStoredPassword(boolean storedPassword) {
+        this.storedPassword = storedPassword;
+    }
+
     /**
      * Reads the password from the password safe.
      * It restores the password of the old settings, where it was stored in the XML data.
@@ -196,14 +208,13 @@ public class ZatoServerConfig {
         if (ApplicationManager.getApplication() != null) {
             if (this.uuid == null) {
                 this.uuid = UUID.randomUUID().toString();
-                this.safePassword = this.oldPassword;
+                setSafePassword(this.oldPassword);
                 // null to remove it from the persisted XML
                 this.oldPassword = null;
                 storeSafePassword();
             }
             else {
-
-                this.safePassword = PasswordSafe.getInstance().getPassword(createCredentialsAttribute());
+                setSafePassword(PasswordSafe.getInstance().getPassword(createCredentialsAttribute()));
             }
         }
     }

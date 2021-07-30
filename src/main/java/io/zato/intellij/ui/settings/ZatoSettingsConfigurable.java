@@ -162,9 +162,12 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
 
         ZatoServerConfig config = getSelectedServer();
         if (config != null) {
+            String password = String.valueOf(form.getPasswordField().getPassword());
+
             config.setName(form.getNameInput().getText());
             config.setUsername(form.getUsernameField().getText());
-            config.setSafePassword(String.valueOf(form.getPasswordField().getPassword()));
+            config.setSafePassword(password);
+            config.setStoredPassword(!password.isEmpty());
             config.setDefaultServer(form.getIsDefaultCheckbox().isSelected());
             config.setUrl(form.getAddressField().getText());
 
@@ -180,7 +183,7 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
             form.getAddressField().setText(server.getUrl());
             form.getUsernameField().setText(server.getUsername());
             form.getPasswordField().setText(server.getSafePassword() == null ? "" : server.getSafePassword());
-            form.getIsDefaultCheckbox().setSelected(server.getDefaultServer());
+            form.getIsDefaultCheckbox().setSelected(server.isDefaultServer());
         } finally {
             listenerSuspended = false;
         }
