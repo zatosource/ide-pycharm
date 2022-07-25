@@ -13,12 +13,13 @@ import com.jetbrains.python.PythonFileType;
 import com.jetbrains.python.PythonLanguage;
 import io.zato.intellij.test.MockHttpFixtureTestCase;
 import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author jansorg
  */
 public class SyncCurrentFileActionTest extends MockHttpFixtureTestCase {
-
+    @Test
     public void testSuccessfulFileUpload() {
         configureDefaultServer();
 
@@ -36,6 +37,7 @@ public class SyncCurrentFileActionTest extends MockHttpFixtureTestCase {
         Assert.assertEquals("Expected content wasn't uploaded", "{\"payload_name\":\"aaa.py\",\"payload\":\"cHJpbnQoIkhlbGxvIHdvcmxkISIp\"}", httpd.getRequestContent().get(0));
     }
 
+    @Test
     public void testUploadWithoutServer() {
         //the context for the upload action
         myFixture.configureByText(PythonFileType.INSTANCE, "print(\"Hello world!\")");
@@ -52,6 +54,7 @@ public class SyncCurrentFileActionTest extends MockHttpFixtureTestCase {
         }
     }
 
+    @Test
     public void testUploadScratchFile() {
         configureDefaultServer();
 
@@ -69,6 +72,7 @@ public class SyncCurrentFileActionTest extends MockHttpFixtureTestCase {
         Assert.assertEquals("Expected no upload for a scratch file", 0, httpd.getRequestContent().size());
     }
 
+    @Test
     public void testNonPythonFile() {
         //the context for the upload action
         myFixture.configureByText(PlainTextFileType.INSTANCE, "plain text");

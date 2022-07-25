@@ -6,11 +6,13 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCase;
 import com.jetbrains.python.PythonFileType;
 import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author jansorg
  */
 public class ZatoHttpServiceTest extends LightPlatformCodeInsightFixtureTestCase {
+    @Test
     public void testIsSupported() {
         ZatoHttpService service = ZatoHttpService.getInstance();
 
