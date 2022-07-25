@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>zato</id>
-    <name>Zato hot-deployment</name>
-    <version>1.2.0</version>
+    <name>Zato Hot-Deployment</name>
+    <version>1.3.0</version>
     <vendor email="pycharm@m.zato.io" url="https://zato.io/docs/?pycharm-plugin">Zato Source s.r.o.</vendor>
     <category>network</category>
 
@@ -11,6 +11,11 @@
 
     <change-notes><![CDATA[
         <html>
+          <b>1.3.0 - 2022-07-25</b>
+          <ul>
+            <li>Compatibility with 2022.2</li>
+          </ul>
+
           <b>1.2.0 - 2021-07-28</b>
           <ul>
             <li>Compatibility with 2020.2</li>
