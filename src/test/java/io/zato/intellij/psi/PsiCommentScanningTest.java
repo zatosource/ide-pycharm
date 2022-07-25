@@ -4,11 +4,13 @@ import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCa
 import io.zato.file.CommentScanning;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author jansorg
  */
 public class PsiCommentScanningTest extends LightPlatformCodeInsightFixtureTestCase {
+    @Test
     public void testMatching() {
         boolean matches = pythonMatches("# zato: ide-deploy=True");
         Assert.assertTrue("Matching comment expected", matches);
@@ -36,6 +38,7 @@ public class PsiCommentScanningTest extends LightPlatformCodeInsightFixtureTestC
         Assert.assertTrue("File content must have a match", pythonMatches(content.toString()));
     }
 
+    @Test
     public void testNoMatching() {
         boolean matches = pythonMatches("print()");
         Assert.assertFalse("No matching comment expected", matches);
