@@ -50,7 +50,12 @@ public class RemoteZatoHttp implements ZatoHttp {
         }
 
         try {
-            HttpGet request = new HttpGet(server.getUploadUrl());
+            String url = server.getUploadUrl();
+            if (url == null) {
+                throw new IOException("URL is not defined");
+            }
+
+            HttpGet request = new HttpGet(url);
             request.addHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
             return sendAuthenticatedRequest(server, request);
@@ -84,10 +89,10 @@ public class RemoteZatoHttp implements ZatoHttp {
     /**
      * Sends a request which contains credentials using HTTP BASIC auth to the given Zato endpoint.
      *
-     * @param server  The endpoint to send the request to. This is required to properly setup the authentication.
+     * @param server  The endpoint to send the request to. This is required to properly set up the authentication.
      * @param request The request to send
      * @return The HTTP response's status code.
-     * @throws IOException Thrown if an IO exception ocurred during HTTP setup or during the the HTTP communication.
+     * @throws IOException Thrown if an IO exception occurred during HTTP setup or during the HTTP communication.
      */
     private ZatoHttpResponse sendAuthenticatedRequest(@NotNull ZatoServerConfig server, HttpRequestBase request) throws IOException {
         try (CloseableHttpClient client = clientBuilder.build()) {

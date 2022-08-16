@@ -88,7 +88,7 @@ public class ZatoHttpService {
     }
 
     /**
-     * Tests the conneection to the given server.
+     * Tests the connection to the given server.
      *
      * @param server The server configuration to test
      * @return The server's response
