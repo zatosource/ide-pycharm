@@ -13,6 +13,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import io.zato.file.CommentScanning;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class UploadOnSaveActionListener implements AnActionListener {
+public class UploadOnSaveActionListener implements AnActionListener, DumbAware {
     private static final Logger LOG = Logger.getInstance("#zato.uploadOnSave");
     private static final String UPLOAD_MARKER = "# zato: ide-deploy=True";
     private static final CommentScanning commentScanner = new CommentScanning(UPLOAD_MARKER);
