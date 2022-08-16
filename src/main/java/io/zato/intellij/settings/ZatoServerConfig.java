@@ -9,6 +9,7 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.xmlb.annotations.Attribute;
 import com.intellij.util.xmlb.annotations.Tag;
 import com.intellij.util.xmlb.annotations.Transient;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.TestOnly;
 
 import java.util.Objects;
@@ -57,20 +58,20 @@ public class ZatoServerConfig {
         this.uuid = uuid;
 
         this.safePassword = password;
-        this.storedPassword = storedPassword; 
+        this.storedPassword = storedPassword;
     }
 
     @Override
     public String toString() {
         return "ZatoServerConfig{" +
-               "name='" + name + '\'' +
-               ", url=" + url +
-               ", username='" + username + '\'' +
-               ", password='*****'" +
-               ", hasPassword=" + storedPassword +
-               ", defaultServer=" + defaultServer +
-               ", uuid=" + uuid +
-               '}';
+                "name='" + name + '\'' +
+                ", url=" + url +
+                ", username='" + username + '\'' +
+                ", password='*****'" +
+                ", hasPassword=" + storedPassword +
+                ", defaultServer=" + defaultServer +
+                ", uuid=" + uuid +
+                '}';
     }
 
     @Override
@@ -81,14 +82,14 @@ public class ZatoServerConfig {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ZatoServerConfig that = (ZatoServerConfig)o;
+        ZatoServerConfig that = (ZatoServerConfig) o;
         return Objects.equals(name, that.name) &&
-               Objects.equals(url, that.url) &&
-               Objects.equals(username, that.username) &&
-               Objects.equals(storedPassword, that.storedPassword) &&
-               Objects.equals(safePassword, that.safePassword) &&
-               Objects.equals(defaultServer, that.defaultServer) &&
-               Objects.equals(uuid, that.uuid);
+                Objects.equals(url, that.url) &&
+                Objects.equals(username, that.username) &&
+                Objects.equals(storedPassword, that.storedPassword) &&
+                Objects.equals(safePassword, that.safePassword) &&
+                Objects.equals(defaultServer, that.defaultServer) &&
+                Objects.equals(uuid, that.uuid);
     }
 
     @Override
@@ -127,7 +128,12 @@ public class ZatoServerConfig {
         this.url = url;
     }
 
+    @Nullable
     public String getUploadUrl() {
+        if (url == null || url.isEmpty()) {
+            return null;
+        }
+
         if (url.contains("/ide-deploy")) {
             return url;
         }
@@ -212,8 +218,7 @@ public class ZatoServerConfig {
                 // null to remove it from the persisted XML
                 this.oldPassword = null;
                 storeSafePassword();
-            }
-            else {
+            } else {
                 setSafePassword(PasswordSafe.getInstance().getPassword(createCredentialsAttribute()));
             }
         }
