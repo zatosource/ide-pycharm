@@ -14,6 +14,8 @@
           <b>1.4.0 - 2022-08-16</b>
           <ul>
             <li>Updated logo and icons</li>
+            <li>Also sync files if they're unmodified locally</li>
+            <li>Dropped support for 2020.1 and 2020.2 to support the change for syncing unmodified files</li>
           </ul>
 
           <b>1.3.0 - 2022-07-25</b>
@@ -58,7 +60,7 @@
     </change-notes>
 
     <!-- See http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="201.0"/>
+    <idea-version since-build="203.0"/>
 
     <depends>com.intellij.modules.lang</depends>
     <depends config-file="zato-python.xml" optional="true">com.intellij.modules.python</depends>
