@@ -2,10 +2,7 @@ package io.zato.intellij.sync;
 
 import com.intellij.ide.actions.SaveAllAction;
 import com.intellij.ide.actions.SaveDocumentAction;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.actionSystem.ex.AnActionListener;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ReadAction;
@@ -34,13 +31,13 @@ public class UploadOnSaveActionListener implements AnActionListener, DumbAware {
 
     @Override
     public void afterActionPerformed(@NotNull AnAction action,
-                                     @NotNull DataContext dataContext,
-                                     @NotNull AnActionEvent event) {
+                                     @NotNull AnActionEvent event,
+                                     @NotNull AnActionResult result) {
         if (!(action instanceof SaveAllAction) && !(action instanceof SaveDocumentAction)) {
             return;
         }
 
-        VirtualFile file = findSavedFile(dataContext);
+        VirtualFile file = findSavedFile(event.getDataContext());
         if (file != null) {
             if (ApplicationManager.getApplication().isUnitTestMode()) {
                 syncFileInBackground(file);
@@ -72,7 +69,7 @@ public class UploadOnSaveActionListener implements AnActionListener, DumbAware {
         Optional<ZatoServerConfig> server = settingsService.getDefaultServer();
         FileDocumentManager documentManager = FileDocumentManager.getInstance();
 
-        if (!server.isPresent()) {
+        if (server.isEmpty()) {
             LOG.debug("Ignoring save event because the default server is missing.");
             return;
         }

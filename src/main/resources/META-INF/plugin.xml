@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>zato</id>
     <name>Zato Hot-Deployment</name>
-    <version>1.3.0</version>
+    <version>1.4.1</version>
     <vendor email="pycharm@m.zato.io" url="https://zato.io/docs/?pycharm-plugin">Zato Source s.r.o.</vendor>
     <category>network</category>
 
@@ -11,6 +11,12 @@
 
     <change-notes><![CDATA[
         <html>
+          <b>1.4.1 - 2023-07-21</b>
+          <ul>
+            <li>Support for 2023.2.</li>
+            <li>Dropped support for IDEs earlier than 2022.1.</li>
+          </ul>
+
           <b>1.4.0 - 2022-08-16</b>
           <ul>
             <li>Updated logo and icons</li>
@@ -60,7 +66,7 @@
     </change-notes>
 
     <!-- See http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="203.0"/>
+    <idea-version since-build="221.0"/>
 
     <depends>com.intellij.modules.lang</depends>
     <depends config-file="zato-python.xml" optional="true">com.intellij.modules.python</depends>
