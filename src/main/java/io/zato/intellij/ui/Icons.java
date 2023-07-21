@@ -4,12 +4,9 @@ import com.intellij.openapi.util.IconLoader;
 
 import javax.swing.*;
 
-/**
- * @author jansorg
- */
-public class Icons {
+public final class Icons {
     private Icons() {
     }
 
-    public static final Icon ZatoLogo = IconLoader.findIcon("/icons/zato.png");
+    public static final Icon ZatoLogo = IconLoader.findIcon("/icons/zato.png", Icons.class.getClassLoader());
 }
