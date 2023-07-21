@@ -13,7 +13,7 @@
         <html>
           <b>1.4.1 - 2023-07-21</b>
           <ul>
-            <li>Support for 2023.2.</li>
+            <li>Added support for 2023.2.</li>
             <li>Dropped support for IDEs earlier than 2022.1.</li>
           </ul>
 
@@ -68,12 +68,9 @@
     <!-- See http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="221.0"/>
 
+    <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
     <depends config-file="zato-python.xml" optional="true">com.intellij.modules.python</depends>
-
-    <extensionPoints>
-        <!-- Add your own extension points here -->
-    </extensionPoints>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="io.zato.intellij.settings.ZatoSettingsService"/>
@@ -84,5 +81,7 @@
                                  groupId="language"
                                  displayName="Zato"
                                  provider="io.zato.intellij.ui.settings.ZatoSettingsFactory"/>
+
+        <notificationGroup id="Zato" displayType="BALLOON"/>
     </extensions>
 </idea-plugin>

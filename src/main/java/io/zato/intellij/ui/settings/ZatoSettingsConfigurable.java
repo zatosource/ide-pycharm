@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  */
 @SuppressWarnings("unchecked")
 public class ZatoSettingsConfigurable extends BaseConfigurable {
-    private JBList serverList;
+    private JBList<ZatoServerConfig> serverList;
     private ZatoSettingsForm form;
     private volatile boolean listenerSuspended = false;
     private final DocumentAdapter listener = new DocumentAdapter() {
@@ -42,7 +42,7 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
     public ZatoSettingsConfigurable() {
     }
 
-    private static CollectionListModel<ZatoServerConfig> model(JBList serverList) {
+    private static CollectionListModel<ZatoServerConfig> model(JBList<ZatoServerConfig> serverList) {
         return (CollectionListModel<ZatoServerConfig>) (serverList.getModel());
     }
 
@@ -61,9 +61,9 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-        serverList = new JBList();
+        serverList = new JBList<>();
         serverList.setEmptyText("No servers configured");
-        serverList.setModel(new CollectionListModel<ZatoServerConfig>());
+        serverList.setModel(new CollectionListModel<>());
 
         ToolbarDecorator toolbarDecorator = ToolbarDecorator.createDecorator(serverList).disableUpDownActions();
         toolbarDecorator.setAddAction(button -> {
@@ -104,10 +104,13 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
             }
         });
 
-        serverList.setCellRenderer(new ColoredListCellRenderer() {
+        serverList.setCellRenderer(new ColoredListCellRenderer<>() {
             @Override
-            protected void customizeCellRenderer(@NotNull JList list, Object value, int index, boolean selected, boolean hasFocus) {
-                ZatoServerConfig config = (ZatoServerConfig) value;
+            protected void customizeCellRenderer(@NotNull JList list,
+                                                 @Nullable ZatoServerConfig config,
+                                                 int index,
+                                                 boolean selected,
+                                                 boolean hasFocus) {
                 if (config != null && config.getName() != null) {
                     if (config.isDefaultServer()) {
                         append("* ", SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES);
@@ -136,9 +139,7 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
         form.getIsDefaultCheckbox().addActionListener(e -> {
             if (form.getIsDefaultCheckbox().isSelected()) {
                 //deselect previous default server
-                model(serverList).getItems().forEach(zatoServerConfig -> {
-                    zatoServerConfig.setDefaultServer(false);
-                });
+                model(serverList).getItems().forEach(config -> config.setDefaultServer(false));
             }
             applyEditor();
         });
@@ -190,7 +191,7 @@ public class ZatoSettingsConfigurable extends BaseConfigurable {
     }
 
     private ZatoServerConfig getSelectedServer() {
-        return (ZatoServerConfig) serverList.getSelectedValue();
+        return serverList.getSelectedValue();
     }
 
     @Override

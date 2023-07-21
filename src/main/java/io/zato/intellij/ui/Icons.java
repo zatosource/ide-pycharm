@@ -8,5 +8,5 @@ public final class Icons {
     private Icons() {
     }
 
-    public static final Icon ZatoLogo = IconLoader.findIcon("/icons/zato.png", Icons.class.getClassLoader());
+    public static final Icon ZatoLogo = IconLoader.findIcon("/icons/zato.svg", Icons.class.getClassLoader());
 }
