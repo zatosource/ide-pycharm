@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.util.Base64;
 import io.zato.intellij.settings.ZatoServerConfig;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpHost;
@@ -27,6 +26,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Base64;
+import java.util.Objects;
 
 /**
  * Default implementation of {@link ZatoHttp} which uses a remote HTTP server and the Apache HTTP Components.
@@ -60,7 +61,7 @@ public class RemoteZatoHttp implements ZatoHttp {
 
             return sendAuthenticatedRequest(server, request);
         } catch (IOException e) {
-            LOG.debug(String.format("Error during connection test of %s", server.toString()), e);
+            LOG.debug(String.format("Error during connection test of %s", server), e);
             throw new IOException("IO exception during connection test", e);
         }
     }
@@ -68,7 +69,7 @@ public class RemoteZatoHttp implements ZatoHttp {
     @Override
     public ZatoHttpResponse upload(@NotNull ZatoServerConfig server, @NotNull String content, @NotNull Path file) throws IOException {
         if (LOG.isDebugEnabled()) {
-            LOG.debug(String.format("Uploading file to Zato server. Server: %s, file: %s", server, file.toString()));
+            LOG.debug(String.format("Uploading file to Zato server. Server: %s, file: %s", server, file));
         }
 
         Path fileName = file.getFileName();
@@ -78,7 +79,7 @@ public class RemoteZatoHttp implements ZatoHttp {
 
         JsonObject json = new JsonObject();
         json.addProperty("payload_name", fileName.toString());
-        json.addProperty("payload", Base64.encode(content.getBytes(StandardCharsets.UTF_8)));
+        json.addProperty("payload", Base64.getEncoder().encodeToString(content.getBytes(StandardCharsets.UTF_8)));
 
         HttpPost request = new HttpPost(server.getUploadUrl());
         request.addHeader(HttpHeaders.CONTENT_TYPE, "application/json");
@@ -96,7 +97,7 @@ public class RemoteZatoHttp implements ZatoHttp {
      */
     private ZatoHttpResponse sendAuthenticatedRequest(@NotNull ZatoServerConfig server, HttpRequestBase request) throws IOException {
         try (CloseableHttpClient client = clientBuilder.build()) {
-            URI uri = new URI(server.getUploadUrl());
+            URI uri = new URI(Objects.requireNonNull(server.getUploadUrl()));
             HttpHost host = new HttpHost(uri.getHost(), uri.getPort(), uri.getScheme());
 
             HttpClientContext context = HttpClientContext.create();

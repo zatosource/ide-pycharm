@@ -34,7 +34,7 @@ public class SyncCurrentFileAction extends AnAction {
         PsiFile file = currentFile(e.getDataContext());
 
         Optional<ZatoServerConfig> server = ZatoSettingsService.getInstance().getDefaultServer();
-        if (!server.isPresent()) {
+        if (server.isEmpty()) {
             Messages.showErrorDialog("There is no default server available in the settings.\nPlease configure at least one server.",
                                      "No Server Configuration");
         }
@@ -57,7 +57,7 @@ public class SyncCurrentFileAction extends AnAction {
         PsiFile file = currentFile(e.getDataContext());
 
         Presentation presentation = e.getPresentation();
-        presentation.setText("Upload to default Zato server");
+        presentation.setText("Upload to Default Zato Server");
         presentation.setIcon(Icons.ZatoLogo);
         presentation.setEnabled(file != null
                                 && file.getFileType() instanceof PythonFileType

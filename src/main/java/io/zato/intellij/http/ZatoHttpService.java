@@ -16,7 +16,6 @@ import io.zato.http.RemoteZatoHttp;
 import io.zato.http.ZatoHttp;
 import io.zato.http.ZatoHttpResponse;
 import io.zato.intellij.settings.ZatoServerConfig;
-import io.zato.intellij.ui.Icons;
 import io.zato.intellij.vfs.VfsUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -112,7 +111,7 @@ public class ZatoHttpService {
      * @param server      The server to upload to
      * @param path        The path of the file being uploaded
      * @param fileContent The content to upload to the remote server
-     * @param project
+     * @param project     Current project
      */
     public void uploadAsync(ZatoServerConfig server, Path path, String fileContent, Project project) {
         UploadRunnable runnable = new UploadRunnable(path, fileContent, server, project);
@@ -129,12 +128,10 @@ public class ZatoHttpService {
 
     private static class ZatoDeployErrorNotification extends Notification {
         public ZatoDeployErrorNotification(ZatoServerConfig server, @NotNull String errorMessage) {
-            super("Zato", Icons.ZatoLogo,
+            super("Zato",
                     "Zato hot-deploy failed",
-                    null,
                     String.format("<html>Hot-deployment to %s failed.\n<br>Error: <em>%s</em></html>", server.getName(), StringUtils.trimToEmpty(errorMessage)),
-                    NotificationType.ERROR,
-                    null);
+                    NotificationType.ERROR);
         }
     }
 

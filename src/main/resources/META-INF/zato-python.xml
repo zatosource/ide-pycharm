@@ -5,7 +5,7 @@
     </applicationListeners>
 
     <actions>
-        <action class="io.zato.intellij.sync.SyncCurrentFileAction" id="zato.syncFile" icon="/icons/zato.png">
+        <action class="io.zato.intellij.sync.SyncCurrentFileAction" id="zato.syncFile" icon="io.zato.intellij.ui.Icons.ZatoLogo">
             <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="Servers.Deploy"/>
         </action>
     </actions>
