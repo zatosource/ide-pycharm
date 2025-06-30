@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.intellij") version "1.15.0"
 }
 
-version = "1.4.1"
+version = "1.4.2"
 
 allprojects {
     repositories {
@@ -35,7 +35,7 @@ allprojects {
 
         patchPluginXml {
             sinceBuild.set("221.0")
-            untilBuild.set("251.*")
+            untilBuild.set("")
         }
 
         runPluginVerifier {
